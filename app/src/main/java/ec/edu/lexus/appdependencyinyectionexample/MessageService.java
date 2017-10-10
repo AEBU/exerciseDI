@@ -3,22 +3,24 @@ package ec.edu.lexus.appdependencyinyectionexample;
 import android.content.Context;
 import android.widget.Toast;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 /**
  * Created by Alexis on 10/10/2017.
  */
 
 public class MessageService {
 
-    private Context context;
-    private String hi;
-    private String bye;
-    private String question;
+    @Inject
+    Context context;
+    @Inject @Named("hi") String hi;
+    @Inject @Named("bye") String bye;
+    @Inject @Named("question") String question;
 
-    public MessageService(Context context, String hi, String bye, String question) {
-        this.context = context;
-        this.hi = hi;
-        this.bye = bye;
-        this.question = question;
+    @Inject
+    MessageService() {
+        // no-op
     }
 
     public void sayHi() {

@@ -3,20 +3,24 @@ package ec.edu.lexus.appdependencyinyectionexample;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import javax.inject.Inject;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
-
-    private MessageService messageService;
+    @Inject
+    MessageService messageService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        DaggerMainComponent.builder()
+                .mainModule(new MainModule(this))
+                .build()
+                .inject(this);
         ButterKnife.bind(this);
-        messageService = new MessageService(this, "Hello!", "Good bye!!", "What's your name???");
     }
 
     @OnClick(R.id.hi_button)
